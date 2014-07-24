@@ -119,12 +119,14 @@ public class SelfController {
 		System.out.println("End date is " + JiraClient.getdateFormForReport().print(endDate) + " ("
 				+ dateDayOnly.withLocale(Locale.ENGLISH).print(endDate) + ")");
 
-		System.out.format("Working with issues. Please wait it can take several minutes...");
+		System.out.format("Loading list of issues. Please wait...");
 		searchResults = jc.searchByJQLExpr("filter = " + prop.getProperty("jira.filter") + " AND updatedDate > "
 				+ JiraClient.getDateFormForJira().print(startDate), searchStep, searchPos);
 		totalSearchResults = searchResults.getTotal();
 
 		if (totalSearchResults > 0) {
+			System.out.format("done!%n%d issues found!%n",totalSearchResults);
+			System.out.format("Processing issues. Please wait...");
 			do {
 				issues = searchResults.getIssues().iterator();
 
@@ -177,7 +179,6 @@ public class SelfController {
 						+ JiraClient.getDateFormForJira().print(startDate), searchStep, searchPos);
 			} while (searchPos < totalSearchResults);
 			System.out.format("done!%n");
-			System.out.println("Processed " + totalSearchResults + " issue(s)!");
 
 			if (problems.isEmpty()) {
 				String filename = dateFormForReport.print(new DateTime()) + " report for period "
@@ -194,7 +195,7 @@ public class SelfController {
 				}
 			}
 		} else {
-			System.out.format("done!%n");
+			System.out.format("done!%nNo appropriate issues found!%n");
 		}
 		jc.closeConnection();
 		System.out.println("Hit Enter to exit... ");

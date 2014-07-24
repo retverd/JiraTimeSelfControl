@@ -45,6 +45,7 @@ public class SelfController {
 
 		int searchStep = 100;
 		int searchPos = 0;
+		int currentIssueNumber = 0;
 		InputStream input = null;
 		String moduleName = "";
 		String componentName = "";
@@ -125,13 +126,14 @@ public class SelfController {
 		totalSearchResults = searchResults.getTotal();
 
 		if (totalSearchResults > 0) {
-			System.out.format("done!%n%d issues found!%n",totalSearchResults);
-			System.out.format("Processing issues. Please wait...");
+			System.out.format("done!%n%d issues found!%n", totalSearchResults);
 			do {
 				issues = searchResults.getIssues().iterator();
 
 				while (issues.hasNext()) {
+					System.out.format("Processing issues. Please wait...%3d%%\r", currentIssueNumber*100/totalSearchResults);
 					issue = ((Issue) issues.next());
+					currentIssueNumber++;
 					issueCorrectness = true;
 
 					moduleCol = (ArrayList<Version>) issue.getFixVersions();
@@ -178,7 +180,7 @@ public class SelfController {
 				searchResults = jc.searchByJQLExpr("filter = " + prop.getProperty("jira.filter") + " AND updatedDate > "
 						+ JiraClient.getDateFormForJira().print(startDate), searchStep, searchPos);
 			} while (searchPos < totalSearchResults);
-			System.out.format("done!%n");
+			System.out.format("Processing issues. Please wait...done!%n");
 
 			if (problems.isEmpty()) {
 				String filename = dateFormForReport.print(new DateTime()) + " report for period "

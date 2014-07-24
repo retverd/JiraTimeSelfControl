@@ -49,7 +49,7 @@ public class PersonalReport {
 			for (WorklogRecord worklog : worklogsList) {
 				worklog.saveWorklog(writer);
 			}
-			writer.format("Total hours spent: %.2f\r\n\r\n", ((double) totalSpentMinutes / 60));
+			writer.format("Total hours spent: %.2f%n%n", ((double) totalSpentMinutes / 60));
 		}
 	}
 }

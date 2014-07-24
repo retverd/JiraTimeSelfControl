@@ -24,6 +24,6 @@ public class WorklogRecord {
 	}
 
 	public void saveWorklog(PrintWriter writer) {
-		writer.format("%s: %s; Hours spent: %.2f; Comment: %s\r\n", issueKey, issueDescr, ((double) minutesSpent / 60), comment);
+		writer.format("%s: %s; Hours spent: %.2f; Comment: %s%n", issueKey, issueDescr, ((double) minutesSpent / 60), comment);
 	}
 }

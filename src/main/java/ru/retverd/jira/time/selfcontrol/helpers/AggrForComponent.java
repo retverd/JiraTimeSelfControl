@@ -18,6 +18,6 @@ public class AggrForComponent {
 	}
 
 	public void saveAggrComponentReport(PrintWriter writer) {
-		writer.format("; Hours spent: %.2f\r\n", ((double) minutesSpent / 60));
+		writer.format("; Hours spent: %.2f%n", ((double) minutesSpent / 60));
 	}
 }

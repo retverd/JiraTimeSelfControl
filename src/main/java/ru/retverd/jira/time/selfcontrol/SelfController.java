@@ -89,7 +89,7 @@ public class SelfController {
 
 		System.out.format("Connecting to Jira...");
 		JiraClient jc = new JiraClient(prop.getProperty("jira.url"), login, pass);
-		System.out.format("done!\r\n");
+		System.out.format("done!%n");
 
 		if (args.length == 1) {
 			users.add(login);
@@ -176,7 +176,7 @@ public class SelfController {
 				searchResults = jc.searchByJQLExpr("filter = " + prop.getProperty("jira.filter") + " AND updatedDate > "
 						+ JiraClient.getDateFormForJira().print(startDate), searchStep, searchPos);
 			} while (searchPos < totalSearchResults);
-			System.out.format("done!\r\n");
+			System.out.format("done!%n");
 			System.out.println("Processed " + totalSearchResults + " issue(s)!");
 
 			if (problems.isEmpty()) {
@@ -194,7 +194,7 @@ public class SelfController {
 				}
 			}
 		} else {
-			System.out.format("done!\r\n");
+			System.out.format("done!%n");
 		}
 		jc.closeConnection();
 		System.out.println("Hit Enter to exit... ");
